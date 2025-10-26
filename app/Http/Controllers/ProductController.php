@@ -29,4 +29,9 @@ class ProductController extends Controller
     public function edit(Product $product) {
         return Inertia::render('products/edit', [ 'product' => $product ]);
     }
+
+    public function delete(Product $product) {
+        $product->delete();
+        return redirect()->route('products.index')->with('message', 'Product deleted successfully.');
+    }
 }
