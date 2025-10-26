@@ -32,13 +32,13 @@ interface Props {
     products: Product[];
 }
 
-export default function index({products}: Props) {
-    const { processing, delete: destroy } =useForm();
+export default function index({ products }: Props) {
+    const { processing, delete: destroy } = useForm();
     const handleDelete = (id: number, name: string) => {
-        if(confirm('Are you sure you want to delete ' + name + '?')) {
+        if (confirm('Are you sure you want to delete ' + name + '?')) {
             destroy(route('products.delete', id));
         }
-    }
+    };
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Products" />
@@ -72,10 +72,25 @@ export default function index({products}: Props) {
                                     <TableCell>{product.description}</TableCell>
                                     <TableCell>{product.price}</TableCell>
                                     <TableCell>
-                                        <Button className="cursor-pointer">
-                                            Edit
-                                        </Button>
-                                        <Button onClick={() => handleDelete(product.id, product.name)} className="ml-2 cursor-pointer">
+                                        <Link
+                                            href={route(
+                                                'products.edit',
+                                                product.id,
+                                            )}
+                                        >
+                                            <Button className="cursor-pointer">
+                                                Edit
+                                            </Button>
+                                        </Link>
+                                        <Button
+                                            onClick={() =>
+                                                handleDelete(
+                                                    product.id,
+                                                    product.name,
+                                                )
+                                            }
+                                            className="ml-2 cursor-pointer"
+                                        >
                                             Delete
                                         </Button>
                                     </TableCell>
